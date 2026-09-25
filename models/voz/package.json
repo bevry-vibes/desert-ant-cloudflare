@@ -1,0 +1,21 @@
+{
+	"name": "desert-ant-voz",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"description": "Desert Ant Labs voz (speech recognition) inside the Cloudflare workerd runtime.",
+	"dependencies": {
+		"@desert-ant-labs/voz": "3.5.0",
+		"onnxruntime-web": "1.30.0"
+	},
+	"devDependencies": {
+		"wrangler": "^4.137.0"
+	},
+	"scripts": {
+		"dev": "wrangler dev --port 8824",
+		"test": "node test.mjs"
+	},
+	"engines": {
+		"node": ">=20"
+	}
+}

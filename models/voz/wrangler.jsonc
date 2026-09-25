@@ -1,0 +1,21 @@
+// desert-ant-voz: the voz language-recognition model inside workerd.
+{
+	"name": "desert-ant-voz",
+	"main": "src/worker.js",
+	"compatibility_date": "2026-09-01",
+	// The 46 MiB Swift wasm core rides the module graph as a pre-compiled
+	// module: workerd forbids wasm code generation from runtime bytes, and the
+	// assets pipeline rejects files over 25 MiB (enforced even by wrangler dev).
+	"rules": [
+		{
+			"type": "CompiledWasm",
+			"globs": ["**/*.wasm"],
+			"fallthrough": true,
+		},
+	],
+	// The composed load path is the SDK's browser/WebAssembly path. It uses no
+	// node:* modules, so nodejs_compat stays off.
+	"observability": {
+		"enabled": true,
+	},
+}
