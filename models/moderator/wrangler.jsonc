@@ -1,0 +1,44 @@
+// wrangler config for the moderator workerd test
+//
+// workerd disallows compiling wasm bytes at runtime ("Wasm code generation
+// disallowed by embedder"), so both wasm binaries are bundled as precompiled
+// modules through the CompiledWasm rule and instantiated with runtime imports.
+// The model weights stay runtime-fetched through the modelBaseUrl var, because
+// bytes are not wasm and face no code generation limit. Only the small
+// fixtures ride the ASSETS binding: a 43.9 MiB asset exceeds the 25 MiB
+// Workers asset limit.
+//
+// The internal package modules bypassed this way are pulled in through the
+// alias table: esbuild honours aliases before the package exports map, so the
+// map cannot hide them.
+//
+// The LiteRT.js emscripten glue references node:fs and node:crypto inside its
+// dead Node branches. The aliases point those specifiers at an empty stub, so
+// no nodejs_compat flag is needed.
+{
+	"name": "desert-ant-moderator",
+	"main": "src/worker.js",
+	"compatibility_date": "2026-09-01",
+	"assets": {
+		"directory": "./assets",
+		"binding": "ASSETS"
+	},
+	"vars": {
+		// the Hugging Face resolve URL is public and unauthenticated
+		"MODEL_BASE_URL": "https://huggingface.co/desert-ant-labs/moderator/resolve/main/"
+	},
+	"rules": [
+		{
+			"type": "CompiledWasm",
+			"globs": ["**/*.wasm"],
+			"fallthrough": true
+		}
+	],
+	"alias": {
+		"@desert-ant-labs/moderator/moderator.js": "./node_modules/@desert-ant-labs/moderator/moderator.js",
+		"@desert-ant-labs/moderator/dist/instantiate.js": "./node_modules/@desert-ant-labs/moderator/dist/instantiate.js",
+		"@desert-ant-labs/moderator/dist/platforms/browser.js": "./node_modules/@desert-ant-labs/moderator/dist/platforms/browser.js",
+		"node:fs": "./src/stub.js",
+		"node:crypto": "./src/stub.js"
+	}
+}

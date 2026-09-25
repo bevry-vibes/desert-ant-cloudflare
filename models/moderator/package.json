@@ -1,0 +1,19 @@
+{
+  "name": "desert-ant-moderator",
+  "version": "1.0.0",
+  "description": "workerd test for the Desert Ant Labs moderator on-device image moderation model",
+  "license": "RPL-1.5",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "dev": "node scripts/setup.mjs && wrangler dev --port 8827",
+    "test": "node scripts/test.mjs",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "@desert-ant-labs/moderator": "^3.5.0",
+    "@litertjs/core": "^2.5.3",
+    "jpeg-js": "^0.4.4"
+  }
+}
