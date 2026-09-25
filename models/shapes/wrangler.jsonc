@@ -1,0 +1,23 @@
+{
+	// Desert Ant Labs Shapes under workerd. The weights and the wasm cores are
+	// copied from npm and from the Hugging Face Hub download; the repository
+	// never commits them (see the weight patterns in the root .gitignore).
+	//
+	// assets/model/  shapes.tflite + shapes_meta.json (Hub download, see RESULTS.md)
+	//
+	// ShapesWeb.wasm is 44 MiB, above the 25 MiB asset ceiling, so the worker
+	// imports it as a CompiledWasm module instead of serving it from assets.
+	"name": "desert-ant-shapes",
+	"main": "src/worker.js",
+	"compatibility_date": "2026-09-01",
+	"rules": [
+		{ "type": "CompiledWasm", "globs": ["**/*.wasm"] }
+	],
+	"assets": {
+		"directory": "./assets",
+		"binding": "ASSETS"
+	},
+	"observability": {
+		"enabled": true
+	}
+}
