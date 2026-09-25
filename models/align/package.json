@@ -1,0 +1,17 @@
+{
+	"name": "desert-ant-align-worker",
+	"version": "1.0.0",
+	"description": "workerd test harness for the Desert Ant Labs align word-timestamp refiner.",
+	"license": "RPL-1.5",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "wrangler dev --port 8825",
+		"deploy": "wrangler deploy",
+		"node-align": "DAL_USAGE_DISABLED=1 node scripts/node-align.mjs",
+		"test": "DAL_USAGE_DISABLED=1 node --test test/*.test.mjs"
+	},
+	"dependencies": {
+		"@desert-ant-labs/align": "^3.5.0"
+	}
+}

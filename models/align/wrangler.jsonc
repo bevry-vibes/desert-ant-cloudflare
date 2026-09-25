@@ -1,0 +1,16 @@
+// workerd test harness for @desert-ant-labs/align.
+// The FIXTURES binding serves the test audio; the model weights are never
+// bundled: the SDK fetches them from Hugging Face on the native host only.
+{
+	"name": "desert-ant-align",
+	"main": "src/worker.js",
+	"compatibility_date": "2026-09-01",
+	// nodejs_compat is on because the probe also tries the /native entry,
+	// which imports node:url and node:path before it fails on koffi.
+	// Wrangler 4.140 ignores the old top-level nodejs_compat key.
+	"compatibility_flags": ["nodejs_compat"],
+	"assets": {
+		"directory": "./fixtures",
+		"binding": "FIXTURES"
+	}
+}
