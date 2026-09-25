@@ -206,7 +206,7 @@ export default {
 					routes: [
 						"/",
 						"/warm",
-						"/analyze?img=benign|borderline&quality=fast|balanced|accurate&policy=standard|allowTopless",
+						"/analyze?img=benign&quality=fast|balanced|accurate&policy=standard|allowTopless",
 						"/analyze?text=... (documents the image-only input contract)",
 					],
 				});
@@ -246,7 +246,7 @@ export default {
 					}
 				}
 				const img = url.searchParams.get("img");
-				if (!img) return json({ ok: false, error: "pass img=benign|borderline or text=..." }, 400);
+				if (!img) return json({ ok: false, error: "pass img=benign or text=..." }, 400);
 				const quality = url.searchParams.get("quality") ?? "accurate";
 				const policy = url.searchParams.get("policy") ?? "standard";
 				const thresholdParam = url.searchParams.get("threshold");

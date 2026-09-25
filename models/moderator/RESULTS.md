@@ -8,7 +8,7 @@ Tested 2026-09-25 with wrangler 4.140.0 (`compatibility_date` 2026-09-01), no co
 
 moderator runs end to end in `workerd`, in local dev and on the deployed worker. The model is image-only: it scores pixels for nudity and refuses text. The caveats are size shaped. The JavaScript build needs two wasm binaries, the 43.9 MiB Desert Ant core and the 8.9 MiB LiteRT runtime. workerd forbids compiling wasm bytes at runtime, and the static asset store caps files at 25 MiB, so both binaries must ride in the worker bundle as precompiled modules. That bundle is 21.1 MiB gzipped, which this paid account accepts. The weights are small by comparison, so the worker fetches `moderator.tflite` (9.2 MB) from the Hugging Face resolve URL on every cold isolate. None of this works on a free plan, and no of it works if Cloudflare reverts the script size headroom.
 
-The Hugging Face pipeline tag (`image-classification`) is accurate. The card, the npm package, and the runtime behaviour agree: the input is an image, the output is one 0 to 1 NSFW score, a boolean decision, and five region confidences (`nipples`, `genitals`, `buttocks`, `nude`, `sexAct`). The model card reports recall 88% and false-block rate 6.3% at `accurate` quality. In this test the swimwear fixture passed comfortably and the cat fixture passed, although with less headroom than expected (see Samples).
+The Hugging Face pipeline tag (`image-classification`) is accurate. The card, the npm package, and the runtime behaviour agree: the input is an image, the output is one 0 to 1 NSFW score, a boolean decision, and five region confidences (`nipples`, `genitals`, `buttocks`, `nude`, `sexAct`). The model card reports recall 88% and false-block rate 6.3% at `accurate` quality. In this test the cat fixture passed, although with less headroom than expected (see Samples). The model card's swimwear claim was not re-tested; this harness keeps person photos out of the repository.
 
 ## Setup
 
@@ -111,17 +111,12 @@ The spread in model open time is network, not inference: the HF resolve URL redi
 
 ## Samples and outputs
 
-Local `wrangler dev`, warm isolate. `benign` is a 960×959 cat photo (147 KB), `borderline` is a 960×1536 bikini photo (271 KB); both are Wikimedia images committed under `assets/fixtures/`.
+Local `wrangler dev`, warm isolate. `benign` is a 960×959 cat photo (147 KB), a Wikimedia image committed under `assets/fixtures/`. Person photos stay out of the repository; the second case is the in-code synthetic 64×64 flat grey frame, which doubles as the out-of-distribution check.
 
 | Case | Quality | Policy | Score | isNSFW | analyze ms |
 | --- | --- | --- | --- | --- | --- |
 | benign cat, accurate | accurate | standard | 0.3999687 | false | 1,098 |
 | benign cat, fast | fast | standard | 0.2628098 | false | 147 |
-| borderline bikini, accurate | accurate | standard | 0.1942803 | false | 1,108 |
-| borderline bikini, balanced | balanced | standard | 0.1942803 | false | 566 |
-| borderline bikini, fast | fast | standard | 0.1104411 | false | 148 |
-| borderline bikini, allowTopless | accurate | allowTopless | 0.1942803 | false | 1,053 |
-| borderline bikini, threshold 0.3 | accurate | standard | 0.1942803 | false | 1,080 |
 | synthetic 64×64 solid grey, fast | fast | standard | 0.5690591 | true | 126–160 |
 | text input ("hello world") | — | — | refused | — | 0 |
 
@@ -152,7 +147,7 @@ Deployed scores are bit-identical to local: 0.3999687135219574, 0.19428034126758
 - **workerd's `WebAssembly.instantiate(module, imports)` resolves to the instance itself**, not to `{ module, instance }` as in browsers. Handle both shapes.
 - **`modelInfo()` is the source of truth for the download set.** It reports `{ id: "moderator", sdkVersion: "3.5.0", artifact: "moderator.tflite", sidecars: [] }`, so a self-hosted mirror needs exactly one file.
 - **The HF resolve URL drops connections occasionally.** Large fetches through the xet CDN sometimes end mid-stream (`UND_ERR_SOCKET`, `other side closed`). Retry with a size check against the repo pointer (9,618,016 bytes).
-- **Quality changes the score materially.** The cat image moves 0.26 → 0.40 between `fast` and `accurate`, and the bikini image 0.11 → 0.19. Pick one quality per pipeline and do not compare scores across qualities.
+- **Quality changes the score materially.** The cat image moves 0.26 → 0.40 between `fast` and `accurate`. The model card claims swimwear passes while nudity flags; this harness does not re-test that claim with person photos. Pick one quality per pipeline and do not compare scores across qualities.
 - **Out-of-distribution frames score high.** A solid mid-grey 64×64 frame scores 0.569, above the default 0.5 threshold. Do not feed synthetic or flat frames to this model and trust the answer.
 - **`nodejs_compat` is not needed.** The glue's `node:fs` and `node:crypto` imports sit in dead Node branches and are aliased to an empty stub in `wrangler.jsonc`. `@desert-ant-labs/core` and LiteRT.js are browser-safe.
 - **Telemetry.** The worker sets `globalThis.__dalUsageDisabled = true` in the shims, so no usage POST leaves the harness.
@@ -183,6 +178,4 @@ Deployed route checks:
 | --- | --- |
 | `/warm` (cold isolate) | `ok`, core 0 ms, model open 1,363 ms, synthetic score 0.5690591, wall 4.3 s |
 | `/analyze?img=benign` | score 0.3999687, `isNSFW` false, identical to local |
-| `/analyze?img=borderline` | score 0.1942803, `isNSFW` false, identical to local |
-| `/analyze?img=borderline&quality=fast` | score 0.1104411, `isNSFW` false, identical to local |
 | `/analyze?text=hello` | refused, pixel contract message, identical to local |

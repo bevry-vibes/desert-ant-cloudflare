@@ -1,4 +1,4 @@
-// fetches the two test fixtures from stable public sources
+// fetches the test fixture from stable public sources
 // both files are small enough to commit, so this script only needs to run on a
 // fresh clone when the fixtures are missing
 import { mkdirSync, writeFileSync } from "node:fs";
@@ -18,13 +18,6 @@ const FIXTURES = [
 		// the Cat03.jpg lead image, resolved through the Commons imageinfo API;
 		// 960px is the standard thumbnail bucket Wikimedia serves on request
 		url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/960px-Cat03.jpg",
-	},
-	{
-		name: "borderline.jpg",
-		// the lead image of the English Wikipedia bikini article
-		// (Three Girls Surfers Paradise in bikinis.jpg): swimwear, the case the
-		// model claims to pass while flagging nudity
-		url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/Three_Girls_Surfers_Paradise_in_bikinis.jpg/960px-Three_Girls_Surfers_Paradise_in_bikinis.jpg",
 	},
 ];
 
