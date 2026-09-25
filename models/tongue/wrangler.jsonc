@@ -1,0 +1,12 @@
+// wrangler config for the tongue workerd test
+// the worker imports the model package directly and reads the weights
+// from the ASSETS binding, so no compatibility flags are needed
+{
+	"name": "desert-ant-tongue",
+	"main": "src/worker.js",
+	"compatibility_date": "2026-09-01",
+	"assets": {
+		"directory": "./assets",
+		"binding": "ASSETS"
+	}
+}

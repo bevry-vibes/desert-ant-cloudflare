@@ -1,0 +1,5 @@
+# model weights are copied by scripts/setup.mjs, never committed
+assets/models/tongue/*.bin
+
+# wrangler dev state
+.wrangler/

@@ -1,0 +1,17 @@
+{
+  "name": "desert-ant-tongue",
+  "version": "1.0.0",
+  "description": "workerd test for the Desert Ant Labs tongue on-device language identification model",
+  "license": "RPL-1.5",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "dev": "node scripts/setup.mjs && wrangler dev --port 8821",
+    "test": "node scripts/test.mjs",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "@desert-ant-labs/tongue": "^3.5.0"
+  }
+}
