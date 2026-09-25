@@ -1,0 +1,18 @@
+{
+	"name": "desert-ant-cloudflare",
+	"version": "1.0.0",
+	"description": "Cloudflare Workers test harness for the Desert Ant Labs on-device models.",
+	"homepage": "https://github.com/bevry-vibes/desert-ant-cloudflare",
+	"license": "RPL-1.5",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"test": "for dir in models/*/; do if [ -f \"$dir/package.json\" ]; then (cd \"$dir\" && npm test --if-present) || exit 1; fi; done"
+	},
+	"devDependencies": {
+		"wrangler": "^4.137.0"
+	},
+	"engines": {
+		"node": ">=20"
+	}
+}

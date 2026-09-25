@@ -1,0 +1,68 @@
+# 2020 June 3
+# https://github.com/bevry/base
+
+# System Files
+**/.DS_Store
+
+# Temp Files
+**/.docpad.db
+**/*.log
+**/*.cpuprofile
+**/*.heapsnapshot
+
+# Editor Files
+.c9/
+.vscode/
+
+# Yarn Files
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+.pnp/
+
+# Private Files
+.env
+.idea
+.cake_task_cache
+
+# Build Caches
+build/
+bower_components/
+node_modules/
+.next/
+
+# -------------------------------------
+# CDN Inclusions, Git Exclusions
+
+# Build Outputs
+**/out.*
+**/*.out.*
+**/out/
+**/output/
+*compiled*
+edition*/
+coffeejs/
+coffee/
+es5/
+es2015/
+esnext/
+docs/
+
+# =====================================
+# CUSTOM
+
+.now
+
+# =====================================
+# CUSTOM
+
+# model weights are fetched by scripts, never committed
+models/*/assets/*.bin
+models/*/assets/*.onnx
+models/*/assets/*.tflite
+models/*/assets/*.i8
+models/*/assets/*.mlmodelc/
+models/*/assets/*.safetensors
