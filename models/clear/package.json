@@ -1,0 +1,22 @@
+{
+	"name": "desert-ant-clear",
+	"version": "1.0.0",
+	"description": "Cloudflare workerd test for the Desert Ant Labs Clear speech enhancement model.",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "wrangler dev --port 8823",
+		"deploy": "wrangler deploy",
+		"test": "node test/run.mjs"
+	},
+	"dependencies": {
+		"@desert-ant-labs/clear": "^3.5.0",
+		"@litertjs/core": "^2.5.3"
+	},
+	"devDependencies": {
+		"wrangler": "^4.137.0"
+	},
+	"engines": {
+		"node": ">=20"
+	}
+}

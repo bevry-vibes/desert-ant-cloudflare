@@ -1,0 +1,25 @@
+{
+	// Desert Ant Labs Clear under workerd. The wasm cores come from npm and the
+	// weights from the Hugging Face Hub download; the repository never commits
+	// them (see the weight patterns in the root .gitignore).
+	//
+	// assets/fixtures/  small speech WAVs used by /matrix (mirrors ../fixtures/)
+	//
+	// ClearWeb.wasm is 44 MiB, above the 25 MiB asset ceiling, so the worker
+	// imports it as a CompiledWasm module. clear-studio.tflite is 47 MiB, above
+	// the same ceiling, so the worker fetches it from the Hugging Face Hub at
+	// runtime and verifies its sha256 against the core's pinned manifest hash.
+	"name": "desert-ant-clear",
+	"main": "src/worker.js",
+	"compatibility_date": "2026-09-01",
+	"rules": [
+		{ "type": "CompiledWasm", "globs": ["**/*.wasm"] }
+	],
+	"assets": {
+		"directory": "./assets",
+		"binding": "ASSETS"
+	},
+	"observability": {
+		"enabled": true
+	}
+}
