@@ -1,0 +1,23 @@
+{
+	// wrangler config for the @desert-ant-labs/redact workerd test.
+	//
+	// - Both wasm modules ship as precompiled CompiledWasm bundle imports,
+	//   because workerd bans wasm code generation at runtime.
+	// - Assets are served before the worker for matching paths, so the model
+	//   weights under /weights/ never reach this worker. Populate assets/
+	//   first: `npm run setup`.
+	"$schema": "../node_modules/wrangler/config-schema.json",
+	"name": "desert-ant-redact",
+	"main": "src/worker.js",
+	"compatibility_date": "2026-09-01",
+	"rules": [
+		{
+			"type": "CompiledWasm",
+			"globs": ["**/RedactWeb.wasm", "**/litert_wasm_compat_internal.wasm"]
+		}
+	],
+	"assets": {
+		"directory": "./assets",
+		"binding": "ASSETS"
+	}
+}
