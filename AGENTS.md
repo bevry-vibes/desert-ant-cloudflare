@@ -9,7 +9,7 @@ This project conforms to [Bevry's skills](https://github.com/bevry-vibes/skills)
 - <https://github.com/bevry-vibes/skills/blob/main/conventions.md> — **applies**. Config file pulls are done (`bevry/base` `.editorconfig`, `.gitattributes`, `.gitignore`, `LICENSE.md`). Writing style, wrapping rule, and splat naming apply to all authored content.
 - <https://github.com/bevry-vibes/skills/blob/main/commits.md> — **applies**. Conventional Commits, agent-detect trailers, SSH signing via 1Password.
 - <https://github.com/bevry-vibes/skills/blob/main/plans.md> — **applies**. Plans live in `.plans/` with `.prompts.md` companions.
-- <https://github.com/bevry-vibes/skills/blob/main/policy.md> — **applies**. Run `agent-detect check-reciprocal` fresh for each session; record the verdict here.
+- <https://github.com/bevry-vibes/skills/blob/main/policy.md> — **applies**. Run `agent-detect check-reciprocal` fresh for each session; record the verdict here. 2026-09-25: `agent-detect check-reciprocal` reports `not reciprocal` for ZCode + Z.ai GLM sessions (same combo as the patipeaceplace exemption; upstream tracking: https://github.com/bevry-vibes/agent-detect/issues/3).
 - <https://github.com/bevry-vibes/skills/blob/main/license.md> — once-off initialisation is done (`LICENSE.md`, RPL-1.5, copyright Benjamin Lupton per `git config user.name`).
 - <https://github.com/bevry-vibes/skills/blob/main/build.md> — does not apply. This project is a test harness, not a menu-bar or tray desktop application.
 - <https://github.com/bevry-vibes/skills/blob/main/powershell.md> — does not apply. This project targets Linux (Fedora) and Cloudflare Workers; no PowerShell tooling.

@@ -66,3 +66,6 @@ models/*/assets/*.tflite
 models/*/assets/*.i8
 models/*/assets/*.mlmodelc/
 models/*/assets/*.safetensors
+
+# docs are repository content; bevry/base ignores docs/ by default
+!docs/
