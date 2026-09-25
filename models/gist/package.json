@@ -1,0 +1,20 @@
+{
+	"name": "desert-ant-gist-worker",
+	"version": "1.0.0",
+	"description": "workerd probe and Node reference for the Desert Ant Labs gist topic tagger.",
+	"license": "RPL-1.5",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "wrangler dev --port 8826",
+		"deploy": "wrangler deploy",
+		"native": "node scripts/native.mjs",
+		"test": "node --test test/*.test.mjs"
+	},
+	"dependencies": {
+		"@desert-ant-labs/gist": "^3.5.0"
+	},
+	"devDependencies": {
+		"@desert-ant-labs/tongue": "^3.5.0"
+	}
+}
