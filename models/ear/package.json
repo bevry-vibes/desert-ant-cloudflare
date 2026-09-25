@@ -1,0 +1,25 @@
+{
+	"name": "desert-ant-ear",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"description": "Desert Ant Labs ear (spoken language identification) inside the Cloudflare workerd runtime.",
+	"dependencies": {
+		"@desert-ant-labs/ear": "3.5.0",
+		"@litertjs/core": "^2.5.3"
+	},
+	"devDependencies": {
+		"wrangler": "^4.137.0"
+	},
+	"scripts": {
+		"dev": "wrangler dev --port 8824",
+		"test": "node test.mjs"
+	},
+	"engines": {
+		"node": ">=20"
+	},
+	"allowScripts": {
+		"workerd@1.20260923.1": true,
+		"esbuild@0.28.1": true
+	}
+}
