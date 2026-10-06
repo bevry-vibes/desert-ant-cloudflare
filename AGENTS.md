@@ -7,7 +7,8 @@ This project conforms to [Bevry's skills](https://github.com/bevry-vibes/skills)
 ## Bevry skills
 
 - <https://github.com/bevry-vibes/skills/blob/main/conventions.md> — **applies**. Config file pulls are done (`bevry/base` `.editorconfig`, `.gitattributes`, `.gitignore`, `LICENSE.md`). Writing style, wrapping rule, and splat naming apply to all authored content.
-- <https://github.com/bevry-vibes/skills/blob/main/commits.md> — **applies**. Conventional Commits, agent-detect trailers, SSH signing via 1Password.
+- <https://github.com/bevry-vibes/skills/blob/main/author.md> — **applies**. Authorship: identities, the co-author and assisted-by trailers, and signing — human commits sign through 1Password, agent-made commits are never signed.
+- <https://github.com/bevry-vibes/skills/blob/main/commits.md> — **applies**. Conventional Commits, agent-detect trailers.
 - <https://github.com/bevry-vibes/skills/blob/main/plans.md> — **applies**. Plans live in `.plans/` with `.prompts.md` companions.
 - <https://github.com/bevry-vibes/skills/blob/main/policy.md> — **applies**. Run `agent-detect check-reciprocal` fresh for each session; record the verdict here. 2026-09-25: `agent-detect check-reciprocal` reports `not reciprocal` for ZCode + Z.ai GLM sessions (same combo as the patipeaceplace exemption; upstream tracking: https://github.com/bevry-vibes/agent-detect/issues/3).
 - <https://github.com/bevry-vibes/skills/blob/main/license.md> — once-off initialisation is done (`LICENSE.md`, RPL-1.5, copyright Benjamin Lupton per `git config user.name`).
